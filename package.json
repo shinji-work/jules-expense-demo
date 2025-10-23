@@ -1,0 +1,44 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinji-work/jules-expense-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shinji-work/jules-expense-demo/issues"
+  },
+  "homepage": "https://github.com/shinji-work/jules-expense-demo#readme",
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.15",
+    "@types/node": "^24.9.1",
+    "@types/react": "^19.2.2",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.38.0",
+    "eslint-config-next": "^16.0.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "tailwindcss": "^4.1.15",
+    "typescript": "^5.9.3"
+  }
+}
