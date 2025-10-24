@@ -24,6 +24,42 @@ const defaultExpenses: Expense[] = [
 ];
 
 /**
+ * ローカルストレージから支出データを読み込みます。保存済みデータがない場合はデフォルトの支出を登録します。
+ *
+ * @param storage Web Storage API の Storage インスタンス。
+ * @returns ロードした支出データの配列。
+ */
+const loadExpensesFromStorage = (storage: Storage): Expense[] => {
+  const storedExpenses = storage.getItem(storageKey);
+  if (!storedExpenses) {
+    storage.setItem(storageKey, JSON.stringify(defaultExpenses));
+    return defaultExpenses;
+  }
+
+  try {
+    const parsedExpenses = JSON.parse(storedExpenses) as Expense[];
+    if (!Array.isArray(parsedExpenses)) {
+      throw new Error('支出データが配列ではありません。');
+    }
+    return parsedExpenses;
+  } catch (error) {
+    console.warn('ローカルストレージからの読み込みに失敗しました。', error);
+    storage.setItem(storageKey, JSON.stringify(defaultExpenses));
+    return defaultExpenses;
+  }
+};
+
+/**
+ * 支出データをローカルストレージに保存します。
+ *
+ * @param storage Web Storage API の Storage インスタンス。
+ * @param expenses 保存する支出データの配列。
+ */
+const saveExpensesToStorage = (storage: Storage, expenses: Expense[]): void => {
+  storage.setItem(storageKey, JSON.stringify(expenses));
+};
+
+/**
  * 支出一覧と追加フォームを組み合わせたトップページを描画します。
  *
  * @returns 支出データの一覧と追加フォームを含む React 要素。
@@ -37,21 +73,8 @@ const IndexPage = (): JSX.Element => {
       return;
     }
 
-    const storedExpenses = window.localStorage.getItem(storageKey);
-    if (storedExpenses) {
-      try {
-        const parsedExpenses: Expense[] = JSON.parse(
-          storedExpenses
-        ) as Expense[];
-        setExpenses(parsedExpenses);
-      } catch (error) {
-        console.warn('ローカルストレージからの読み込みに失敗しました。', error);
-        setExpenses(defaultExpenses);
-      }
-    } else {
-      window.localStorage.setItem(storageKey, JSON.stringify(defaultExpenses));
-      setExpenses(defaultExpenses);
-    }
+    const expensesFromStorage = loadExpensesFromStorage(window.localStorage);
+    setExpenses(expensesFromStorage);
     setIsInitialized(true);
   }, []);
 
@@ -60,7 +83,7 @@ const IndexPage = (): JSX.Element => {
       return;
     }
 
-    window.localStorage.setItem(storageKey, JSON.stringify(expenses));
+    saveExpensesToStorage(window.localStorage, expenses);
   }, [expenses, isInitialized]);
 
   /**
