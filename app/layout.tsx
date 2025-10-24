@@ -5,6 +5,9 @@ import React from 'react';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
 
+/**
+ * アプリケーション全体で共通利用するメタデータを宣言します。
+ */
 export const metadata: Metadata = {
   title: 'Jules Expense Tracker',
   description: '家計簿アプリの初期構成'
@@ -29,7 +32,9 @@ export interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja" className={notoSansJp.className}>
-      <body className="min-h-screen bg-slate-50 text-slate-900">{children}</body>
+      <body className="min-h-screen bg-slate-50 text-slate-900">
+        {children}
+      </body>
     </html>
   );
 }
