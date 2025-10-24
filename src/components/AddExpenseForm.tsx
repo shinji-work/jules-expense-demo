@@ -30,89 +30,80 @@ const AddExpenseForm = ({ addExpense }: AddExpenseFormProps) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mb-8 rounded-lg bg-white p-6 shadow-md"
-    >
-      <h2 className="mb-4 text-2xl font-bold">支出を追加</h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div>
-          <label
-            htmlFor="date"
-            className="block text-sm font-medium text-gray-700"
-          >
-            日付
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700"
-          >
-            カテゴリ
-          </label>
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          >
-            <option>食費</option>
-            <option>交通費</option>
-            <option>趣味</option>
-            <option>雑費</option>
-            <option>その他</option>
-          </select>
-        </div>
-        <div>
-          <label
-            htmlFor="amount"
-            className="block text-sm font-medium text-gray-700"
-          >
-            金額
-          </label>
-          <input
-            type="number"
-            id="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="例: 1000"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="memo"
-            className="block text-sm font-medium text-gray-700"
-          >
-            メモ
-          </label>
-          <input
-            type="text"
-            id="memo"
-            value={memo}
-            onChange={(e) => setMemo(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="例: ランチ"
-          />
-        </div>
+    <div className="mb-8 rounded-xl border bg-card text-card-foreground shadow">
+      <div className="p-6">
+        <h2 className="text-2xl font-semibold tracking-tight">支出を追加</h2>
       </div>
-      <div className="mt-6 text-right">
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
-        >
-          追加
-        </button>
+      <div className="p-6 pt-0">
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <label htmlFor="date" className="text-sm font-medium">
+                日付
+              </label>
+              <input
+                type="date"
+                id="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background"
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="category" className="text-sm font-medium">
+                カテゴリ
+              </label>
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background"
+              >
+                <option>食費</option>
+                <option>交通費</option>
+                <option>趣味</option>
+                <option>雑費</option>
+                <option>その他</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="amount" className="text-sm font-medium">
+                金額
+              </label>
+              <input
+                type="number"
+                id="amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="例: 1000"
+                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background"
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="memo" className="text-sm font-medium">
+                メモ
+              </label>
+              <input
+                type="text"
+                id="memo"
+                value={memo}
+                onChange={(e) => setMemo(e.target.value)}
+                placeholder="例: ランチ"
+                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background"
+              />
+            </div>
+          </div>
+          <div className="mt-6 flex justify-end">
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90"
+            >
+              追加
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 };
 

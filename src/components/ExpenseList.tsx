@@ -8,50 +8,53 @@ type ExpenseListProps = {
 
 const ExpenseList = ({ expenses }: ExpenseListProps) => {
   return (
-    <div className="rounded-lg bg-white p-6 shadow-md">
-      <h2 className="mb-4 text-2xl font-bold">支出一覧</h2>
-      {expenses.length === 0 ? (
-        <p className="text-gray-500">支出はまだありません。</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                  日付
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                  カテゴリ
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                  金額
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                  メモ
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {expenses.map((expense) => (
-                <tr key={expense.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {expense.date}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {expense.category}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {expense.amount.toLocaleString()}円
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {expense.memo}
-                  </td>
+    <div className="rounded-xl border bg-card text-card-foreground shadow">
+      <div className="p-6">
+        <h2 className="text-2xl font-semibold tracking-tight">支出一覧</h2>
+      </div>
+      <div className="p-6 pt-0">
+        {expenses.length === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            支出はまだありません。
+          </p>
+        ) : (
+          <div className="relative w-full overflow-auto">
+            <table className="w-full caption-bottom text-sm">
+              <thead className="[&_tr]:border-b">
+                <tr className="border-b transition-colors hover:bg-muted/50">
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                    日付
+                  </th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                    カテゴリ
+                  </th>
+                  <th className="h-12 px-4 text-right align-middle font-medium text-muted-foreground">
+                    金額
+                  </th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                    メモ
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody className="[&_tr:last-child]:border-0">
+                {expenses.map((expense) => (
+                  <tr
+                    key={expense.id}
+                    className="border-b transition-colors hover:bg-muted/50"
+                  >
+                    <td className="p-4 align-middle">{expense.date}</td>
+                    <td className="p-4 align-middle">{expense.category}</td>
+                    <td className="p-4 align-middle text-right">
+                      {expense.amount.toLocaleString()}円
+                    </td>
+                    <td className="p-4 align-middle">{expense.memo}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

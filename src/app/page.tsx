@@ -5,18 +5,27 @@ import AddExpenseForm from '@/components/AddExpenseForm';
 import ExpenseList from '@/components/ExpenseList';
 import { Expense } from '@/types/expense';
 
-const HomePage = () => {
+export default function HomePage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
 
   useEffect(() => {
-    const storedExpenses = localStorage.getItem('expenses');
-    if (storedExpenses) {
-      setExpenses(JSON.parse(storedExpenses));
+    try {
+      const storedExpenses = localStorage.getItem('expenses');
+      if (storedExpenses) {
+        setExpenses(JSON.parse(storedExpenses));
+      }
+    } catch (error) {
+      console.error('Failed to parse expenses from localStorage', error);
+      setExpenses([]);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('expenses', JSON.stringify(expenses));
+    try {
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+    } catch (error) {
+      console.error('Failed to save expenses to localStorage', error);
+    }
   }, [expenses]);
 
   const addExpense = (expense: Omit<Expense, 'id'>) => {
@@ -25,18 +34,14 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto max-w-4xl">
-        <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-800">支出管理アプリ</h1>
-        </header>
-        <main>
-          <AddExpenseForm addExpense={addExpense} />
-          <ExpenseList expenses={expenses} />
-        </main>
-      </div>
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+      <header className="mb-8 text-center">
+        <h1 className="text-4xl font-bold tracking-tight">支出管理アプリ</h1>
+      </header>
+      <main className="mx-auto max-w-4xl">
+        <AddExpenseForm addExpense={addExpense} />
+        <ExpenseList expenses={expenses} />
+      </main>
     </div>
   );
-};
-
-export default HomePage;
+}
